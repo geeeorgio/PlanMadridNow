@@ -7,7 +7,7 @@ import { styles } from './styles';
 
 interface CustomContainerProps {
   children: ReactNode;
-  variant?: 'brown' | 'golden';
+  variant?: 'brown' | 'golden' | 'menu';
   extraStyle?: StyleProp<ViewStyle>;
 }
 

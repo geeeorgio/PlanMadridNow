@@ -4,3 +4,4 @@ export * from './fonts';
 export * from './images';
 export * from './questions';
 export * from './bckd';
+export * from './tabBarIcons';

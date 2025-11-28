@@ -6,6 +6,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'prado-museum',
     number: 1,
+    shortTitle: 'Prado Museum',
     title: 'Prado Museum (Museo Nacional del Prado)',
     coordinates: {
       latitude: 40.4138,
@@ -23,6 +24,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'retiro-park',
     number: 2,
+    shortTitle: 'Retiro Park',
     title: 'Retiro Park (Parque del Buen Retiro)',
     coordinates: {
       latitude: 40.4153,
@@ -40,6 +42,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'royal-palace-madrid',
     number: 3,
+    shortTitle: 'Royal Palace',
     title: 'Royal Palace of Madrid (Palacio Real de Madrid)',
     coordinates: {
       latitude: 40.4179,
@@ -57,6 +60,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'gran-via',
     number: 4,
+    shortTitle: 'Gran Vía',
     title: 'Gran Vía',
     coordinates: {
       latitude: 40.4203,
@@ -74,6 +78,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'santiago-bernabeu',
     number: 5,
+    shortTitle: 'Santiago Bernabéu',
     title: 'Santiago Bernabéu Stadium',
     coordinates: {
       latitude: 40.4531,
@@ -91,6 +96,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'mercado-san-miguel',
     number: 6,
+    shortTitle: 'Mercado de San Miguel',
     title: 'Mercado de San Miguel',
     coordinates: {
       latitude: 40.4154,
@@ -108,6 +114,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'malasana-district',
     number: 7,
+    shortTitle: 'Malasaña District',
     title: 'Malasaña District',
     coordinates: {
       latitude: 40.4251,
@@ -125,6 +132,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'temple-debod',
     number: 8,
+    shortTitle: 'Temple of Debod',
     title: 'Temple of Debod (Templo de Debod)',
     coordinates: {
       latitude: 40.424,
@@ -142,6 +150,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'plaza-mayor',
     number: 9,
+    shortTitle: 'Plaza Mayor',
     title: 'Plaza Mayor',
     coordinates: {
       latitude: 40.4155,
@@ -159,6 +168,7 @@ export const PLACES: PlaceType[] = [
   {
     id: 'reina-sofia',
     number: 10,
+    shortTitle: 'Reina Sofía Museum',
     title: 'Reina Sofía Museum (Museo Nacional Centro de Arte Reina Sofía)',
     coordinates: {
       latitude: 40.4087,

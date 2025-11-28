@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
+import { CustomHeader, CustomTabBar } from 'src/components';
 import {
   HomeScreen,
   MapsScreen,
@@ -15,10 +16,12 @@ const TabNavigator = () => {
   return (
     <TabStack.Navigator
       screenOptions={{
+        header: (props) => <CustomHeader props={props} />,
+        headerTransparent: true,
         sceneStyle: { backgroundColor: 'transparent' },
         tabBarShowLabel: false,
-        animation: 'fade',
       }}
+      tabBar={(props) => <CustomTabBar {...props} />}
     >
       <TabStack.Screen
         name="HomeScreen"

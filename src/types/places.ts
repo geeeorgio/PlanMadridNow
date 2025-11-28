@@ -1,6 +1,7 @@
 export type PlaceType = {
   id: string;
   number: number;
+  shortTitle: string;
   title: string;
   coordinates: {
     latitude: number;
@@ -13,7 +14,6 @@ export type PlaceType = {
 
 export type PlaceQuestion = {
   id: string;
-  number: number;
   question: string;
-  options: string[];
+  options: { number: number; text: string }[];
 };

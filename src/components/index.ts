@@ -1,4 +1,8 @@
 import Layout from './layout/Layout';
+import ChatAnswer from './ui/Chat/ChatAnswer/ChatAnswer';
+import ChatList from './ui/Chat/ChatList';
+import ChatOptions from './ui/Chat/ChatOptions/ChatOptions';
+import ChatQuestion from './ui/Chat/ChatQuestion/ChatQuestion';
 import CustomButton from './ui/CustomButton/CustomButton';
 import CustomContainer from './ui/CustomContainer/CustomContainer';
 import CustomHeader from './ui/CustomHeader/CustomHeader';
@@ -30,4 +34,8 @@ export {
   SettingsIcon,
   ShareIcon,
   CustomScreenWrapper,
+  ChatList,
+  ChatQuestion,
+  ChatAnswer,
+  ChatOptions,
 };
