@@ -6,8 +6,9 @@ import { hp, sp, wp } from 'src/utils';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: wp(22),
-    paddingBottom: hp(20),
+    paddingHorizontal: wp(20),
+    paddingVertical: hp(20),
+    gap: hp(16),
     justifyContent: 'space-between',
   },
   backBtn: {
@@ -16,7 +17,6 @@ export const styles = StyleSheet.create({
   chatMenu: {
     flex: 1,
     width: '100%',
-    paddingVertical: hp(20),
   },
   chatMenuButton: {
     alignSelf: 'center',

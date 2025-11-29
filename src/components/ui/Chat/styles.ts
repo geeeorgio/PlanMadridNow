@@ -4,6 +4,6 @@ import { hp } from 'src/utils';
 
 export const styles = StyleSheet.create({
   contentContainer: {
-    gap: hp(10),
+    gap: hp(4),
   },
 });

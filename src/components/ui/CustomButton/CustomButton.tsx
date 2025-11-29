@@ -10,6 +10,7 @@ interface CustomButtonProps {
   variant?: 'brown' | 'golden';
   onPress: () => void;
   extraStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 const CustomButton = ({
@@ -17,11 +18,18 @@ const CustomButton = ({
   variant = 'golden',
   onPress,
   extraStyle,
+  disabled,
 }: CustomButtonProps) => {
   return (
     <Pressable
-      style={[styles.button, styles[variant], extraStyle]}
-      onPress={onPress}
+      style={[
+        styles.button,
+        styles[variant],
+        disabled && styles.disabled,
+        extraStyle,
+      ]}
+      onPress={disabled ? undefined : onPress}
+      disabled={disabled}
     >
       {children}
     </Pressable>

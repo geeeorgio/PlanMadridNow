@@ -13,4 +13,7 @@ export const styles = StyleSheet.create({
   golden: {
     backgroundColor: COLORS.gold,
   },
+  disabled: {
+    opacity: 0.7,
+  },
 });

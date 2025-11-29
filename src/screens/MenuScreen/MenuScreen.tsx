@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { styles } from './styles';
@@ -12,83 +12,123 @@ import {
   CustomScreenWrapper,
   CustomText,
 } from 'src/components';
+import { PLACES } from 'src/constants';
 import type {
   ChatMessage,
   MainStackNavigationProp,
-  PlaceQuestion,
   PlaceType,
 } from 'src/types';
 import { hp, wp } from 'src/utils';
-import { getTenRandomQuestions } from 'src/utils/chatHelper';
+import {
+  getTenRandomQuestions,
+  findSuggestedPlace,
+} from 'src/utils/chatHelper';
 
 const MenuScreen = () => {
   const navigation = useNavigation<MainStackNavigationProp>();
+  const flatListRef = useRef<any>(null);
 
-  const flatListRef = useRef(null);
-
-  const [questions, setQuestions] = useState(() => getTenRandomQuestions());
-  console.log(questions);
+  const [questions] = useState(() => getTenRandomQuestions());
 
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      id: `q-${Date.now()}`,
+      id: `intro`,
       type: 'question',
       text: `Hi! \n Ready to answer a few questions to help you choose a location?`,
     },
   ]);
 
-  const [chatStarted, setChatStarted] = useState(false);
-  console.log('chatStarted', chatStarted);
+  const [isGameStarted, setIsGameStarted] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  console.log('currentQuestionIndex', currentQuestionIndex);
-  const [currentQuestion, setCurrentQuestion] = useState<PlaceQuestion | null>(
-    null,
-  );
-  console.log('currentQuestion', currentQuestion);
+
   const [showOptions, setShowOptions] = useState(false);
-  console.log('showOptions', showOptions);
-  const [currentOptions, setCurrentOptions] = useState<
-    { number: number; text: string }[]
-  >([]);
-  console.log('currentOptions', currentOptions);
-  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [userAnswers, setUserAnswers] = useState<number[]>([]);
+  const [tempSelectedOption, setTempSelectedOption] = useState<{
+    number: number;
+    text: string;
+  } | null>(null);
+
   const [suggestedPlace, setSuggestedPlace] = useState<PlaceType | null>(null);
 
   const handleBackPress = () => {
     navigation.goBack();
   };
 
-  const handleStartPress = () => {
-    setChatStarted(true);
-    setCurrentQuestion(questions[currentQuestionIndex]);
-    setCurrentOptions(questions[currentQuestionIndex].options);
-
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: `a-${Date.now()}`,
-        type: 'answer',
-        text: `Start`,
-      },
-    ]);
+  const addMessage = (type: 'question' | 'answer', text: string) => {
+    const newMessage: ChatMessage = {
+      id: `${type}-${Date.now()}`,
+      type,
+      text,
+    };
+    setMessages((prev) => [...prev, newMessage]);
   };
-  console.log('messages', messages);
 
-  const handleQuestionPress = () => {
-    if (currentOptions.length > 0) {
-      setShowOptions(true);
+  const handleStartPress = () => {
+    setIsGameStarted(true);
+    addMessage('answer', 'Start');
+
+    setTimeout(() => {
+      askQuestion(0);
+    }, 555);
+  };
+
+  const askQuestion = (index: number) => {
+    if (index >= questions.length) {
+      finishGame();
+      return;
     }
+    const question = questions[index];
+    addMessage('question', question.question);
+  };
 
-    if (selectedOptions.length > 0) {
-      setShowOptions(false);
+  const handleLetMeAnswerPress = () => {
+    setShowOptions(true);
+  };
 
-      if (currentQuestionIndex <= questions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
-        setCurrentQuestion(questions[currentQuestionIndex]);
-        setCurrentOptions(questions[currentQuestionIndex].options);
-      }
+  const handleOptionSelect = (option: { number: number; text: string }) => {
+    setTempSelectedOption(option);
+  };
+
+  const handleConfirmAnswer = () => {
+    if (!tempSelectedOption) return;
+
+    setShowOptions(false);
+    const selected = tempSelectedOption;
+    setTempSelectedOption(null);
+
+    addMessage('answer', selected.text);
+
+    const newAnswers = [...userAnswers, selected.number];
+    setUserAnswers(newAnswers);
+
+    const nextIndex = currentQuestionIndex + 1;
+    setCurrentQuestionIndex(nextIndex);
+
+    if (nextIndex >= questions.length) {
+      finishGame(newAnswers);
+    } else {
+      setTimeout(() => {
+        askQuestion(nextIndex);
+      }, 555);
     }
+  };
 
+  const finishGame = (finalAnswers?: number[]) => {
+    const answersToProcess = finalAnswers || userAnswers;
+    const result = findSuggestedPlace(answersToProcess, PLACES);
+    setSuggestedPlace(result || null);
+
+    if (result) {
+      setTimeout(() => {
+        addMessage(
+          'question',
+          `${result.shortTitle}, the place that suits you!`,
+        );
+      }, 555);
+    }
+  };
+
+  const handleShowResult = () => {
     if (suggestedPlace) {
       navigation.navigate('PlaceDetailsScreen', {
         place: suggestedPlace,
@@ -97,31 +137,60 @@ const MenuScreen = () => {
     }
   };
 
-  const handleOptionPress = (option: { number: number; text: string }) => {
-    console.log('option', option);
-    setSelectedOptions((prev) => [...prev, option.number]);
-  };
+  const currentOptionsData = questions[currentQuestionIndex]?.options || [];
 
-  useEffect(() => {
-    let timeOut: ReturnType<typeof setTimeout>;
-    if (currentQuestion) {
-      timeOut = setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: `q-${Date.now()}`,
-            type: 'question',
-            text: currentQuestion.question,
-          },
-        ]);
-      }, 1000);
+  let mainButton = null;
 
-      return () => clearTimeout(timeOut);
-    }
-  }, [currentQuestion]);
+  if (!isGameStarted) {
+    mainButton = (
+      <CustomButton
+        variant="golden"
+        onPress={handleStartPress}
+        extraStyle={styles.chatMenuButton}
+      >
+        <CustomText extraStyle={styles.chatMenuButtonText}>Start</CustomText>
+      </CustomButton>
+    );
+  } else if (suggestedPlace) {
+    mainButton = (
+      <CustomButton
+        variant="golden"
+        onPress={handleShowResult}
+        extraStyle={styles.chatMenuButton}
+      >
+        <CustomText extraStyle={styles.chatMenuButtonText}>Show me</CustomText>
+      </CustomButton>
+    );
+  } else if (showOptions) {
+    mainButton = (
+      <CustomButton
+        variant="golden"
+        onPress={handleConfirmAnswer}
+        extraStyle={styles.chatMenuButton}
+        disabled={!tempSelectedOption}
+      >
+        <CustomText extraStyle={styles.chatMenuButtonText}>Answer</CustomText>
+      </CustomButton>
+    );
+  } else {
+    mainButton = (
+      <CustomButton
+        variant="golden"
+        onPress={handleLetMeAnswerPress}
+        extraStyle={styles.chatMenuButton}
+      >
+        <CustomText extraStyle={styles.chatMenuButtonText}>
+          Let me answer.
+        </CustomText>
+      </CustomButton>
+    );
+  }
 
   return (
-    <CustomScreenWrapper extraStyle={styles.container}>
+    <CustomScreenWrapper
+      extraStyle={styles.container}
+      edges={['bottom', 'left', 'right']}
+    >
       <Pressable
         style={styles.backBtn}
         onPress={handleBackPress}
@@ -133,34 +202,16 @@ const MenuScreen = () => {
       <View style={styles.chatMenu}>
         {showOptions ? (
           <ChatOptions
-            options={currentOptions}
-            onOptionPress={handleOptionPress}
+            options={currentOptionsData}
+            selectedOptionNumber={tempSelectedOption?.number || null}
+            onOptionPress={handleOptionSelect}
           />
         ) : (
           <ChatList messages={messages} flatListRef={flatListRef} />
         )}
       </View>
 
-      {chatStarted ? (
-        <CustomButton
-          variant="golden"
-          onPress={handleQuestionPress}
-          extraStyle={styles.chatMenuButton}
-        >
-          <CustomText extraStyle={styles.chatMenuButtonText}>
-            {showOptions ? 'Answer' : 'Let me answer.'}
-            {suggestedPlace && 'Show me'}
-          </CustomText>
-        </CustomButton>
-      ) : (
-        <CustomButton
-          variant="golden"
-          onPress={handleStartPress}
-          extraStyle={styles.chatMenuButton}
-        >
-          <CustomText extraStyle={styles.chatMenuButtonText}>Start</CustomText>
-        </CustomButton>
-      )}
+      {mainButton}
     </CustomScreenWrapper>
   );
 };

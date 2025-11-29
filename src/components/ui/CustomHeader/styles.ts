@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: wp(16),
   },
   backButton: {
     width: wp(44),

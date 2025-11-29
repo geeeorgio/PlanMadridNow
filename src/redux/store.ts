@@ -13,6 +13,7 @@ import {
 
 import { onboardingReducer } from './onboarding/slice';
 import { placesReducer } from './places/slice';
+import { settingsReducer } from './settings/slice';
 
 const persistOnboardingConfig = {
   key: 'onboarding',
@@ -21,6 +22,11 @@ const persistOnboardingConfig = {
 
 const persistPlacesConfig = {
   key: 'places',
+  storage: AsyncStorage,
+};
+
+const persistSettingsConfig = {
+  key: 'settings',
   storage: AsyncStorage,
 };
 
@@ -34,10 +40,16 @@ const persistedPlacesReducer = persistReducer(
   placesReducer,
 );
 
+const persistedSettingsReducer = persistReducer(
+  persistSettingsConfig,
+  settingsReducer,
+);
+
 const store = configureStore({
   reducer: {
     onboarding: persistedOnboardingReducer,
     places: persistedPlacesReducer,
+    settings: persistedSettingsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

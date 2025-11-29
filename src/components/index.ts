@@ -17,6 +17,8 @@ import CustomScreenWrapper from './ui/CustomScreenWrapper/CustomScreenWrapper';
 import CustomTabBar from './ui/CustomTabBar/CustomTabBar';
 import CustomText from './ui/CustomText/CustomText';
 import GradientContainer from './ui/GradientContainer/GradientContainer';
+import SavedList from './ui/SavedList/SavedList/SavedList';
+import SavedListItem from './ui/SavedList/SavedListItem/SavedListItem';
 
 export {
   Layout,
@@ -38,4 +40,6 @@ export {
   ChatQuestion,
   ChatAnswer,
   ChatOptions,
+  SavedList,
+  SavedListItem,
 };

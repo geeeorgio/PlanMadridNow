@@ -1,36 +1,8 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from 'src/constants';
 import { hp, sp, wp } from 'src/utils';
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: hp(100),
-    paddingHorizontal: wp(20),
-  },
-  noPlacesContainer: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: wp(40),
-  },
-  noPlacesText: {
-    textAlign: 'center',
-    fontSize: sp(20),
-    color: COLORS.darkBrown,
-  },
-  flatList: {
-    flex: 1,
-    width: '100%',
-  },
-  flatListContent: {
-    gap: hp(16),
-  },
-  footerContainer: {
-    height: hp(100),
-  },
   placeContainer: {
     width: '100%',
     minHeight: hp(96),

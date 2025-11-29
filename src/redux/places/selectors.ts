@@ -6,3 +6,6 @@ export const selectCurrentPlace = (state: RootState) =>
   state.places.currentPlace;
 
 export const selectSavedPlaces = (state: RootState) => state.places.savedPlaces;
+
+export const selectIsPlaceSaved = (placeId: string) => (state: RootState) =>
+  state.places.savedPlaces.some((place) => place.id === placeId);
