@@ -12,8 +12,6 @@ export const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: wp(22),
     gap: hp(16),
-    borderWidth: wp(1),
-    borderColor: 'red',
   },
   backBtn: {
     alignItems: 'flex-start',
@@ -38,8 +36,11 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   mapContainer: {
+    flex: 1,
     width: '100%',
-    borderWidth: wp(1),
-    borderColor: 'blue',
+    overflow: 'hidden',
+  },
+  mapWrapper: {
+    flex: 1,
   },
 });

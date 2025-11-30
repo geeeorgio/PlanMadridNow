@@ -17,6 +17,7 @@ import CustomScreenWrapper from './ui/CustomScreenWrapper/CustomScreenWrapper';
 import CustomTabBar from './ui/CustomTabBar/CustomTabBar';
 import CustomText from './ui/CustomText/CustomText';
 import GradientContainer from './ui/GradientContainer/GradientContainer';
+import MapCard from './ui/Map/MapCard/MapCard';
 import SavedList from './ui/SavedList/SavedList/SavedList';
 import SavedListItem from './ui/SavedList/SavedListItem/SavedListItem';
 
@@ -42,4 +43,5 @@ export {
   ChatOptions,
   SavedList,
   SavedListItem,
+  MapCard,
 };

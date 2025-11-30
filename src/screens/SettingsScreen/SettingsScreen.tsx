@@ -19,7 +19,7 @@ import {
   setIsMusicEnabled,
   setIsVibrationEnabled,
 } from 'src/redux/settings/slice';
-import { handleShare, hp, wp } from 'src/utils';
+import { handleShare, hp, triggerVibration, wp } from 'src/utils';
 
 const SettingsScreen = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +33,7 @@ const SettingsScreen = () => {
 
   const toggleVibration = (value: boolean) => {
     dispatch(setIsVibrationEnabled(value));
+    triggerVibration(value);
   };
 
   const handleSharePress = () => {

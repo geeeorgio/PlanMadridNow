@@ -47,6 +47,6 @@ export const styles = StyleSheet.create({
     color: COLORS.darkBrown,
   },
   switch: {
-    transform: [{ scaleX: 1.4 }, { scaleY: 1.4 }],
+    transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }],
   },
 });

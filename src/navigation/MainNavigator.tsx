@@ -37,6 +37,7 @@ const MainNavigator = () => {
         <MainStack.Screen
           name="MapDetailsScreen"
           component={MapDetailsScreen}
+          options={{ animation: 'none' }}
         />
         <MainStack.Screen
           name="PlaceDetailsScreen"

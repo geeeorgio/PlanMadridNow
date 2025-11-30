@@ -10,6 +10,7 @@ import {
   CustomContainer,
   CustomScreenWrapper,
   CustomText,
+  MapCard,
 } from 'src/components';
 import type {
   MainStackNavigationParamsList,
@@ -25,13 +26,15 @@ const MapDetailsScreen = () => {
   const place = route.params.place;
 
   const handleBackPress = () => {
-    navigation.goBack();
+    navigation.navigate('TabNavigationStack', {
+      screen: 'MapsScreen',
+    });
   };
 
   return (
     <CustomScreenWrapper
       extraStyle={styles.container}
-      edges={['bottom', 'left', 'right']}
+      edges={['left', 'right']}
     >
       <View style={styles.infoContainer}>
         <Pressable
@@ -58,8 +61,8 @@ const MapDetailsScreen = () => {
         </CustomContainer>
       </View>
 
-      <View style={styles.mapContainer}>
-        <CustomText>Map</CustomText>
+      <View style={styles.mapContainer} collapsable={false}>
+        <MapCard coordinates={place.coordinates} title={place.title} />
       </View>
     </CustomScreenWrapper>
   );
