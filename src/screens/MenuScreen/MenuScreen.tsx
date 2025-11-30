@@ -69,7 +69,7 @@ const MenuScreen = () => {
 
     setTimeout(() => {
       askQuestion(0);
-    }, 555);
+    }, 777);
   };
 
   const askQuestion = (index: number) => {
@@ -109,7 +109,7 @@ const MenuScreen = () => {
     } else {
       setTimeout(() => {
         askQuestion(nextIndex);
-      }, 555);
+      }, 777);
     }
   };
 
@@ -124,7 +124,7 @@ const MenuScreen = () => {
           'question',
           `${result.shortTitle}, the place that suits you!`,
         );
-      }, 555);
+      }, 777);
     }
   };
 
@@ -196,7 +196,7 @@ const MenuScreen = () => {
         onPress={handleBackPress}
         hitSlop={wp(10)}
       >
-        <BackArrow width={wp(29)} height={hp(25)} />
+        <BackArrow width={wp(33)} height={hp(33)} />
       </Pressable>
 
       <View style={styles.chatMenu}>

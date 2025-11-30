@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     paddingVertical: hp(18),
   },
   buttonText: {
-    fontSize: sp(20),
+    fontSize: sp(18),
     color: COLORS.darkBrown,
   },
 
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     marginTop: hp(33),
-    fontSize: sp(20),
+    fontSize: sp(18),
     textAlign: 'center',
   },
   guideImageWrapper: {

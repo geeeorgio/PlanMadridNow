@@ -26,9 +26,7 @@ const MapDetailsScreen = () => {
   const place = route.params.place;
 
   const handleBackPress = () => {
-    navigation.navigate('TabNavigationStack', {
-      screen: 'MapsScreen',
-    });
+    navigation.goBack();
   };
 
   return (
@@ -42,7 +40,7 @@ const MapDetailsScreen = () => {
           onPress={handleBackPress}
           hitSlop={wp(10)}
         >
-          <BackArrow width={wp(29)} height={hp(25)} />
+          <BackArrow width={wp(33)} height={hp(33)} />
         </Pressable>
         <View style={styles.imageContainer}>
           <Image

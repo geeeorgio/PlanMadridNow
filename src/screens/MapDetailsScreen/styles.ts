@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   infoContainer: {
     width: '100%',
-    paddingHorizontal: wp(22),
+    paddingHorizontal: wp(20),
     gap: hp(16),
   },
   backBtn: {
